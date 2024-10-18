@@ -6,73 +6,81 @@ import {
     StyleSheet,
     TouchableOpacity,
   } from "react-native";
-  import { useState } from "react";
-  import { Link, router } from "expo-router";
+import { useState } from "react";
+import { Link, router } from "expo-router";
+import { LinearGradient } from 'expo-linear-gradient';
+import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+import { useEffect } from 'react';
   
   export default function Login() {
+
+    const [loaded, error] = useFonts({
+        'inter': require('../assets/fonts/Inter_18pt-Bold.ttf'),
+      });
+    
+      useEffect(() => {
+        if (loaded || error) {
+          SplashScreen.hideAsync();
+        }
+      }, [loaded, error]);
+    
+      if (!loaded && !error) {
+        return null;
+      }
+
     const [email, setEmail] = useState("");
     const [pass, setPass] = useState("");
   
-    const onPress = () => {
-      router.push("../(tabs)");
-    };
   
     console.log(email, pass);
     console.log(typeof email, typeof pass);
-  
-    return (
-      <View style={styles.container}>
-
-        <View style={styles.content}>
-
-        <TextInput
-            style={styles.input}
-            onChangeText={setEmail}
-            value={email}
-            placeholder="Digite seu email"
-            keyboardType="email-address"
-        />
-
-         <TextInput
-            onChangeText={setPass}
-            value={pass}
-            placeholder="Digite sua senha"
-            keyboardType="numeric"
-            secureTextEntry
-            style={styles.input}
-        />
 
      
+    const onPress = () => {
+        router.push("../(tabs)");
+      };
+    
+  
+    return (
 
+    <LinearGradient
+        // Button Linear Gradient
+        colors={['#daa3d1', '#905fd8']}
+        style={styles.bg}>
+        <View style={styles.container}>
+            <View style={styles.box}>
+                <Text style={styles.boasVindas}>HELLO <br/> Sign into your Account</Text>
+            
+                <View style={styles.content}>
+                    <Text style={styles.txt}>Email</Text>
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={setEmail}
+                        value={email}
+                        placeholder="Digite seu email"
+                        keyboardType="email-address"
+                    />
+                    <Text style={styles.txt}>Senha</Text>
+                    <TextInput
+                        onChangeText={setPass}
+                        value={pass}
+                        placeholder="Digite sua senha"
+                        keyboardType="numeric"
+                        secureTextEntry
+                        style={styles.input}
+                    />
+                    <TouchableOpacity style={styles.btn} onPress={onPress}>
+                        <Text style={styles.txt}>Entrar</Text>
+                    </TouchableOpacity>
+            
+                    <View>
+                        <Link href={"/register"}>cadastrar novo user</Link>
+                    </View> 
+                </View>
+            </View>
         </View>
-        {/* <SafeAreaView style={styles.content}>
-          <Text style={styles.label}>Email</Text>
-          <TextInput
-            style={styles.input}
-            onChangeText={setEmail}
-            value={email}
-            placeholder="Digite seu email"
-            keyboardType="email-address"
-          />
-          <Text style={styles.label}>Senha</Text>
-          <TextInput
-            onChangeText={setPass}
-            value={pass}
-            placeholder="Digite sua senha"
-            keyboardType="numeric"
-            secureTextEntry
-            style={styles.input}
-          />
-        </SafeAreaView>
-  
-        <TouchableOpacity style={styles.button} onPress={onPress}>
-          <Text>Entrar</Text>
-        </TouchableOpacity>
-  
-        <View>
-          <Link href={"/register"}>cadastrar novo user</Link>
-        </View> */}
-      </View>
+    </LinearGradient>
     );
   }
   
@@ -85,24 +93,110 @@ import {
     content: {
         margin: 20,
         padding: 20,
-        backgroundColor: "#252525",
         borderRadius: 10,
         minWidth: "auto",
         width: 350
       },
     input: {
-      borderRadius: 7,
-      padding: 10,
-      margin: 5,
-      backgroundColor: "#ffffff",
+        borderBottomWidth: 1, // Adiciona uma linha na parte inferior
+        borderBottomColor: "#AB88DEFF", // Cor da linha
+        backgroundColor: "transparent", // Fundo transparente
+        height: 40, // Altura do input
+        marginVertical: 10, // Margem vertical para espaçamento
+        padding: 5, // Padding interno
     },
-    label: {
-      color: "#ffffff",
+
+    boasVindas:
+    {
+        textAlign:"center",
+        fontFamily: "inter"
+        //color: "#ffffff
     },
-    button: {
-      alignItems: "center",
-      backgroundColor: "#DDDDDD",
-      padding: 10,
+
+    txt:
+    {
+        color: "#ffff",
+        textAlign: "center"
     },
+    bg:
+    {
+        flex: 1
+    },
+    box:{
+        backgroundColor: "#ffffff",
+        height: "80%",
+        borderRadius: 300,
+        display: "flex",
+        justifyContent: "center"
+    },
+    btn:{
+        backgroundColor: "#5B29A7FF",
+        padding: 10,
+        borderRadius: 30,
+        marginTop: 50,
+        minWidth: "auto",
+        width: 250,
+        alignSelf: "center"
+    },
+    // label: {
+    //   color: "#ffffff",
+    // },
+    // button: {
+    //   alignItems: "center",
+    //   backgroundColor: "#DDDDDD",
+    //   padding: 10,
+    // },
   });
+
+
+    {/* <SafeAreaView style={styles.content}>
+            <Text style={styles.label}>Email</Text>
+            <TextInput
+                style={styles.input}
+                onChangeText={setEmail}
+                value={email}
+                placeholder="Digite seu email"
+                keyboardType="email-address"
+            />
+            <Text style={styles.label}>Senha</Text>
+            <TextInput
+                onChangeText={setPass}
+                value={pass}
+                placeholder="Digite sua senha"
+                keyboardType="numeric"
+                secureTextEntry
+                style={styles.input}
+            />
+            </SafeAreaView>
+    
+            <TouchableOpacity style={styles.button} onPress={onPress}>
+            <Text>Entrar</Text>
+            </TouchableOpacity>
+    
+            <View>
+            <Link href={"/register"}>cadastrar novo user</Link>
+            </View> */}
+
+            // .irregular-shape {
+            //     width: 200px;
+            //     height: 200px;
+            //     background-color: #905fd8;
+            //     border-radius: 50% 50% 20% 40%; /* Ajuste os valores para criar formas diferentes */
+            //     position: relative;
+            //   }
+
+            // .irregular-shape {
+            //     width: 200px;
+            //     height: 200px;
+            //     background-color: #905fd8;
+            //     clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); /* Formato irregular */
+            //   }
+
+            // .irregular-shape {
+            //     width: 200px;
+            //     height: 200px;
+            //     background: linear-gradient(135deg, #905fd8, #daa3d1);
+            //     clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            //     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            //   }
   
