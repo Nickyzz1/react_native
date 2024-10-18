@@ -199,4 +199,22 @@ import { useEffect } from 'react';
             //     clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
             //     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             //   }
+
+//             import React from 'react';
+// import { View } from 'react-native';
+// import Svg, { Path } from 'react-native-svg';
+
+// export default function IrregularShape() {
+//   return (
+//     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+//       <Svg height="200" width="200">
+//         <Path
+//           d="M50,0 C100,20 100,80 50,100 C0,80 0,20 50,0"
+//           fill="#ffffff"
+//         />
+//       </Svg>
+//     </View>
+//   );
+// }
+
   
