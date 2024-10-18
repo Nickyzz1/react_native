@@ -1,17 +1,36 @@
+import { useFonts } from 'expo-font';
+// import { useFonts } from '@/expo-google-fonts/inter';
+import * as SplashScreen from 'expo-splash-screen';
+import { useEffect } from 'react';
 import { FlatList, SafeAreaView, Text, StyleSheet } from "react-native";
 import data from "@/constants/dataEx.json";
 import { Item } from "@/components/item";
 
+SplashScreen.preventAutoHideAsync();
+
 export default function List() {
+  const [loaded, error] = useFonts({
+    'comic': require('../../assets/fonts/ComicNeue-Regular.ttf'),
+  });
+
+  useEffect(() => {
+    if (loaded || error) {
+      SplashScreen.hideAsync();
+    }
+  }, [loaded, error]);
+
+  if (!loaded && !error) {
+    return null;
+  }
+
   return (
     <>
-      <Text>Lista</Text>
+      <Text style={styles.title}>Lista</Text>
       <SafeAreaView style={styles.container}>
         <FlatList
-          style={styles.back}
           data={data}
           renderItem={({ item }) => (
-            <Item nome={item.nome} idade={item.idade} data={item.data} />
+            <Item  image={item.image} nome={item.nome} idade={item.idade} data={item.data} />
           )}
           keyExtractor={(item) => item.id}
         />
@@ -23,15 +42,10 @@ export default function List() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  item: {
-    backgroundColor: '#f9c2ff',
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
+    flexWrap: "wrap",
   },
   title: {
-    fontSize: 32,
+    fontSize: 30,
   },
-  back: {},
+
 });

@@ -37,7 +37,8 @@ const styles = StyleSheet.create({
     color: "#E77E7EFF",
     fontWeight: "500",
     fontSize: 20,
-  },
+    fontFamily: 'ComicNeue-Regular.ttf', // Substitua pelo nome correto da fonte
+  }
 });
 
 
