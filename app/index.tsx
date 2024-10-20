@@ -74,40 +74,45 @@ export default function Login() {
     //     style={styles.bg}>
     <>
       <View style={styles.mainContainer}>
+
         <View style={styles.container}>
-        <Svg height="100%" width="100%" viewBox="40 40 620 650" style={{ aspectRatio: 1.10 }}>
-        <Path
-          d="M0 20 Q -60 90, 250 80 T 800 950 V 0 H 0 Z"
-          fill="#905fd8"
-          stroke="none"
-        />
-        
-        <SvgText
-          x="55%" 
-          y="90%"
-          fontSize="24"
-          fontWeight="bold"
-          fontFamily="interBold"
-          textAnchor="middle" // Centraliza o texto horizontalmente
-        >
-          HELLO
-        </SvgText>
-        
-        <SvgText
-          x="55%" 
-          y="95%"
-          fontSize="18"
-          textAnchor="middle"
-          fontFamily="inter"
-        >
-          Sign into your Account
-        </SvgText>
-      </Svg>
+
+          <Svg height="100%" width="100%" viewBox="40 40 620 650" style={{ aspectRatio: 1.10 }}>
+            <Path
+              d="M0 20 Q -60 90, 250 80 T 800 950 V 0 H 0 Z"
+              fill="#905fd8"
+              stroke="none"
+            />
+            
+            <SvgText
+              x="55%" 
+              y="90%"
+              fontSize="24"
+              fontWeight="bold"
+              fontFamily="interBold"
+              textAnchor="middle" // Centraliza o texto horizontalmente
+              >
+              HELLO
+
+            </SvgText>
+            
+            <SvgText
+              x="55%" 
+              y="95%"
+              fontSize="18"
+              textAnchor="middle"
+              fontFamily="inter">
+
+              Sign into your Account
+
+          </SvgText>
+          </Svg>
 
 
           <View style={styles.box}>
 
             <View style={styles.content}>
+              
               <Text style={styles.txt}>Email</Text>
               <TextInput
                 style={styles.input}
@@ -123,21 +128,35 @@ export default function Login() {
                 placeholder="Digite sua senha"
                 keyboardType="numeric"
                 secureTextEntry
-                style={styles.input}
-              />
-            <TouchableOpacity style={styles.btn} onPress={onPress}>
-              <Text style={styles.txt}>Entrar</Text>
-            </TouchableOpacity>
+                style={styles.input}/>
 
-            <View style={styles.createAccount}>
-              <Link href={"/register"}>Cadastrar-ser</Link>
+              <TouchableOpacity style={styles.btn} onPress={onPress}>
+                <Text style={styles.txt}>Entrar</Text>
+              </TouchableOpacity>
+
+              <View style={styles.createAccount}>
+                <Link href={"/register"}>Cadastrar-ser</Link>
+              </View>
+
             </View>
-            </View>
-            
 
           </View>
           
         </View>
+
+        <View style={styles.container2}>
+        <Svg
+          height={undefined}
+          width="100%"
+          viewBox="0 0 500 200"
+            >
+          <Path
+            d="M0 100 Q 150 50, 300 100 T 800 100 V 300 H 0 Z"
+            fill="#905fd8"
+            stroke="none"
+          />
+            </Svg>
+      </View>
       </View>
     </>
     // </LinearGradient>
@@ -163,8 +182,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#FFFFFFFF',
-    flexDirection: "column"
+    flexDirection: "column",
+    marginBottom: 10
 
+  },
+  container2: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    bottom: 0,
+    position: "absolute",
+    width:"100%",
   },
   content: {
     margin: 20,
