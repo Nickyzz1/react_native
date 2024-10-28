@@ -13,16 +13,20 @@ import { useState } from "react";
 import { Link, router } from "expo-router";
 import { LinearGradient } from 'expo-linear-gradient';
 import { useFonts } from 'expo-font';
-import * as SplashScreen from 'expo-splash-screen';
+import * as SplashScreen from 'expo-splash-screen'
+import {signInWithEmailAndPassword} from '@firebase/auth'
 import { useEffect } from 'react';
+import { FIREBASE_AUTH } from "@/firebaseConfig";
+
 
 export default function Login() {
-
+  
   const [loaded, error] = useFonts({
     'inter': require('../assets/fonts/Inter_18pt-Bold.ttf'),
     'interBold': require('../assets/fonts/Inter_18pt-ExtraBold.ttf'),
   });
-
+  
+  const auth = FIREBASE_AUTH;
 
   useEffect(() => {
     if (loaded || error) {
@@ -30,8 +34,19 @@ export default function Login() {
     }
   }, [loaded, error]);
 
-  if (!loaded && !error) {
+  if (!loaded && !error) { //createUserWIthPassWord
     return null;
+  }
+
+  const signIn = () =>
+  {
+    signInWithEmailAndPassword(auth, email, pass).then((dadosUsuario) => {
+      console.log(dadosUsuario);
+      router.push('/(tabs)')
+    }).catch((err) => {
+      alert(err.message)
+    })
+
   }
 
   const [email, setEmail] = useState("");
@@ -66,6 +81,7 @@ export default function Login() {
 
 
 
+
   return (
 
     // <LinearGradient
@@ -73,43 +89,66 @@ export default function Login() {
     //     colors={['#daa3d1', '#905fd8']}
     //     style={styles.bg}>
     <>
-      <View style={styles.mainContainer}>
 
-        <View style={styles.container}>
 
-          <Svg height="100%" width="100%" viewBox="40 40 620 650" style={{ aspectRatio: 1.10 }}>
-            <Path
-              d="M0 20 Q -60 90, 250 80 T 800 950 V 0 H 0 Z"
+    <View>
+      <View style={styles.content}>
+      <Svg height="100%" width="100%" viewBox="800 90 950 50" style={{ aspectRatio: 1.10 }}>
+      <Path
+              d="M0 400 Q -0 110, 950 200 T 3500 750 V 0 H 0 Z"
               fill="#905fd8"
               stroke="none"
             />
-            
-            <SvgText
-              x="55%" 
-              y="90%"
-              fontSize="24"
-              fontWeight="bold"
-              fontFamily="interBold"
-              textAnchor="middle" // Centraliza o texto horizontalmente
-              >
-              HELLO
 
+            </Svg>
+      </View>
+
+      <View></View>
+    </View>
+    
+
+      {/* <View style={styles.mainContainer}>
+
+        <View style={styles.container}>
+
+          <View>
+  
+            <Svg height="100%" width="100%" viewBox="40 40 620 650" style={{ aspectRatio: 1.10 }}>
+              <Path
+                d="M0 10 Q -60 90, 770 80 T 9800 950 V 0 H 0 Z"
+                fill="#905fd8"
+                stroke="none"
+              />
+  
+              <SvgText
+                x="55%"
+                y="90%"
+                fontSize="24"
+                fontWeight="bold"
+                fontFamily="interBold"
+                textAnchor="middle" // Centraliza o texto horizontalmente
+                >
+                HELLO
+  
+              </SvgText>
+  
+              <SvgText
+                x="55%"
+                y="95%"
+                fontSize="18"
+                textAnchor="middle"
+                fontFamily="inter">
+  
+                Sign into your Account
+  
             </SvgText>
-            
-            <SvgText
-              x="55%" 
-              y="95%"
-              fontSize="18"
-              textAnchor="middle"
-              fontFamily="inter">
+            </Svg>
+      </View>
 
-              Sign into your Account
-
-          </SvgText>
-          </Svg>
+          {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#0099ff" fill-opacity="1" d="M0,192L60,202.7C120,213,240,235,360,234.7C480,235,600,213,720,186.7C840,160,960,128,1080,122.7C1200,117,1320,139,1380,149.3L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg> */}
 
 
-          <View style={styles.box}>
+          {/* <View style={styles.box}>
 
             <View style={styles.content}>
               
@@ -130,7 +169,7 @@ export default function Login() {
                 secureTextEntry
                 style={styles.input}/>
 
-              <TouchableOpacity style={styles.btn} onPress={onPress}>
+              <TouchableOpacity style={styles.btn} onPress={signIn}>
                 <Text style={styles.txt}>Entrar</Text>
               </TouchableOpacity>
 
@@ -148,7 +187,7 @@ export default function Login() {
         <Svg
           height={undefined}
           width="100%"
-          viewBox="0 0 500 200"
+          viewBox="0 0 800 150"
             >
           <Path
             d="M0 100 Q 150 50, 300 100 T 800 100 V 300 H 0 Z"
@@ -157,7 +196,7 @@ export default function Login() {
           />
             </Svg>
       </View>
-      </View>
+      </View> */} */
     </>
     // </LinearGradient>
   );
@@ -196,12 +235,8 @@ const styles = StyleSheet.create({
     width:"100%",
   },
   content: {
-    margin: 20,
-    padding: 20,
-    borderRadius: 10,
-    minWidth: "auto",
-    width: 350,
-    flexDirection: "column"
+   top:0,
+    maxHeight: 100
   },
   input: {
     borderBottomWidth: 1, // Adiciona uma linha na parte inferior
